@@ -1,0 +1,119 @@
+databaseChangeLog:
+  - logicalFilePath: classpath:/db/changelog/db.changelog-master.yaml
+  - changeSet:
+      author: 'James Hare'
+      id: 'VTQ-1000'
+      dbms: postgresql
+      changes:
+        - createTable:
+            tableName: attractions
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk__subscriptions
+                    nullable: false
+              - column:
+                  name: customer_id
+                  type: VARCHAR()
+                  constraints:
+                    nullable: false
+              - column:
+                  name: url
+                  type: VARCHAR()
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created
+                  type: TIMESTAMP WITHOUT TIMEZONE
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last_update
+                  type: TIMESTAMP WITHOUT TIMEZONE
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: event_types
+            columns:
+              - column:
+                  name: event_type_name
+                  type: VARCHAR()
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk__event_type_name
+                    nullable: false
+              - column:
+                  name: topic_name
+                  type: VARCHAR()
+                  constraints:
+                    nullable: false
+              - column:
+                  name: active
+                  type: boolean
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created
+                  type: TIMESTAMP WITHOUT TIMEZONE
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last_update
+                  type: TIMESTAMP WITHOUT TIMEZONE
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: event_subscriptions
+            columns:
+              - column:
+                  name: event_type_name
+                  type: VARCHAR()
+                  constraints:
+                    nullable: false
+                    references: event_types(event_type_name)
+                    foreignKeyName: fk_subscriptions__to__event_types
+              - column:
+                  name: subscription_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    references: subscriptions(id)
+                    foreignKeyName: fk_event_types__to__subscriptions
+        - addUniqueConstraint:
+            tableName: subscriptions
+            constraintName: un__subscriptions__customer_id__url
+            columnNames: customer_id, url
+            deferrable: false
+            disabled: false
+            initiallyDeferred: false
+        - addUniqueConstraint:
+            tableName: event_types
+            constraintName: un__event_topic__event_type_name__topic_name
+            columnNames: event_type_name, topic_name
+            deferrable: false
+            disabled: false
+            initiallyDeferred: false
+        - addUniqueConstraint:
+            tableName: event_subscriptions
+            constraintName: un__event_subscription__event_type_name__subscription_id
+            columnNames: event_type_name, subscription_id
+            deferrable: false
+            disabled: false
+            initiallyDeferred: false
+        - createIndex:
+            columns:
+              - column:
+                  name: event_type_name
+                  type: VARCHAR()
+            indexName: idx_event_subscriptions_event_type_name
+            tableName: event_subscriptions
+        - createIndex:
+            columns:
+              - column:
+                  name: subscription_id
+                  type: VARCHAR()
+            indexName: idx_event_subscriptions_subscription_id
+            tableName: event_subscriptions
