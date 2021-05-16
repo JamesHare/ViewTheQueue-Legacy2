@@ -29,6 +29,8 @@ public class Restaurant extends AbstractViewTheQueueEntity {
     @Column(nullable = false)
     private String area;
     @Column(nullable = false)
+    private String description;
+    @Column(nullable = false)
     private boolean servesVegetarian;
     @Column(nullable = false)
     private boolean servesVegan;

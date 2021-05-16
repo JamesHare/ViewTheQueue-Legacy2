@@ -26,6 +26,8 @@ public class Attraction extends AbstractViewTheQueueEntity {
     @Column(nullable = false)
     private String area;
     @Column(nullable = false)
+    private String description;
+    @Column(nullable = false)
     private Integer waitTime;
     @Column(nullable = false)
     private Integer maxHeightRestrictionInches;

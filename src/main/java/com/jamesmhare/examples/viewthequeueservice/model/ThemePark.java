@@ -27,6 +27,8 @@ public class ThemePark extends AbstractViewTheQueueEntity {
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private UUID id;
+    @Column(nullable = false)
+    private String description;
     @OneToMany(mappedBy="theme_park")
     private Set<Attraction> attractions;
     @OneToMany(mappedBy="theme_park")

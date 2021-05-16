@@ -23,6 +23,10 @@ public class AttractionDto {
     @NotEmpty
     @JsonProperty("area")
     private String area;
+    @ApiModelProperty(required = true, value = "Description of the attraction.")
+    @NotEmpty
+    @JsonProperty("description")
+    private String description;
     @ApiModelProperty(required = true, value = "The current wait time of the attraction.")
     @JsonProperty("waitTime")
     private Integer waitTime;

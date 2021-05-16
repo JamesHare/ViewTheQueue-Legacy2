@@ -7,9 +7,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.UUID;
-import java.util.Date;
 
 /**
  * Represents a Show in a Theme Park.
@@ -30,6 +28,8 @@ public class Show extends AbstractViewTheQueueEntity {
     private UUID id;
     @Column(nullable = false)
     private String area;
+    @Column(nullable = false)
+    private String description;
     @ManyToOne
     @JoinColumn(name="theme_park_id", nullable=false)
     private ThemePark themePark;
