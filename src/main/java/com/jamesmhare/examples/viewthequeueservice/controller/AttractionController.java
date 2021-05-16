@@ -54,7 +54,7 @@ public class AttractionController {
             response = AttractionDto.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Attraction retrieved successfully", response = AttractionDto.class),
-            @ApiResponse(code = 404, message = "No attractions match the id given for this client.")})
+            @ApiResponse(code = 404, message = "No attractions match the id given.")})
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AttractionDto> getAttraction(
             @ApiParam(value = "id of an attraction.", required = true)
@@ -91,7 +91,7 @@ public class AttractionController {
             response = AttractionDto.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Attraction updated successfully", response = AttractionDto.class),
-            @ApiResponse(code = 404, message = "No attractions match the id given for this client.")})
+            @ApiResponse(code = 404, message = "No attractions match the id given.")})
     @PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AttractionDto> updateAttraction(
             @ApiParam(value = "id of an existing attraction.", required = true)
