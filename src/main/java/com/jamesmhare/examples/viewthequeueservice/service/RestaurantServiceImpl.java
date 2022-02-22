@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 /**
  * A service class for communicating with the {@link RestaurantRepository}.
@@ -32,7 +31,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     /**
      * {@inheritDoc}
      */
-    public Optional<Restaurant> findRestaurantById(final UUID id) {
+    public Optional<Restaurant> findRestaurantById(final Long id) {
         return this.repository.findById(id);
     }
 
@@ -46,7 +45,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     /**
      * {@inheritDoc}
      */
-    public void deleteRestaurant(final UUID id) {
+    public void deleteRestaurant(final Long id) {
         this.repository.deleteById(id);
     }
 }

@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 /**
  * A service class for communicating with the {@link AttractionRepository}.
@@ -32,7 +31,7 @@ public class AttractionServiceImpl implements AttractionService {
     /**
      * {@inheritDoc}
      */
-    public Optional<Attraction> findAttractionById(final UUID id) {
+    public Optional<Attraction> findAttractionById(final Long id) {
         return this.repository.findById(id);
     }
 
@@ -46,7 +45,7 @@ public class AttractionServiceImpl implements AttractionService {
     /**
      * {@inheritDoc}
      */
-    public void deleteAttraction(final UUID id) {
+    public void deleteAttraction(final Long id) {
         this.repository.deleteById(id);
     }
 }

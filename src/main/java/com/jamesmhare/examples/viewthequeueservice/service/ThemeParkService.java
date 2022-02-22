@@ -4,7 +4,6 @@ import com.jamesmhare.examples.viewthequeueservice.model.ThemePark;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 public interface ThemeParkService {
 
@@ -21,7 +20,7 @@ public interface ThemeParkService {
      * @param id a theme park id.
      * @return an Optional containing either the theme park or empty.
      */
-    Optional<ThemePark> findThemeParkById(final UUID id);
+    Optional<ThemePark> findThemeParkById(final Long id);
 
     /**
      * Saves a theme park to the datasource.
@@ -36,6 +35,6 @@ public interface ThemeParkService {
      *
      * @param id the id of the theme park.
      */
-    void deleteThemePark(final UUID id);
+    void deleteThemePark(final Long id);
 
 }

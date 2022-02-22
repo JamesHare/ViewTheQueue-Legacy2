@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 /**
  * A service class for communicating with the {@link ShowRepository}.
@@ -32,7 +31,7 @@ public class ShowServiceImpl implements ShowService {
     /**
      * {@inheritDoc}
      */
-    public Optional<Show> findShowById(final UUID id) {
+    public Optional<Show> findShowById(final Long id) {
         return this.repository.findById(id);
     }
 
@@ -46,7 +45,7 @@ public class ShowServiceImpl implements ShowService {
     /**
      * {@inheritDoc}
      */
-    public void deleteShow(final UUID id) {
+    public void deleteShow(final Long id) {
         this.repository.deleteById(id);
     }
 }

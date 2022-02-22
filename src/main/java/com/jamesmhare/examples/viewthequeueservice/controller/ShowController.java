@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Api(tags = "Show Management")
@@ -58,7 +57,7 @@ public class ShowController {
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ShowDto> getShow(
             @ApiParam(value = "id of a show.", required = true)
-            @PathVariable final UUID id) {
+            @PathVariable final Long id) {
         final Optional<Show> show = this.showService.findShowById(id);
         return show.map(
                 value -> ResponseEntity
@@ -95,7 +94,7 @@ public class ShowController {
     @PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ShowDto> updateShow(
             @ApiParam(value = "id of an existing show.", required = true)
-            @PathVariable final UUID id,
+            @PathVariable final Long id,
             @ApiParam(value = "Updated show.", required = true)
             @Valid
             @RequestBody final ShowDto show) {
@@ -104,7 +103,7 @@ public class ShowController {
         if (existingShow.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-        show.setId(id);
+        show.setShowId(id);
         final Show savedShow = this.showService
                 .saveShow(this.showMapper.showDtoToShow(show));
         return ResponseEntity
@@ -121,7 +120,7 @@ public class ShowController {
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<Void> deleteShow(
             @ApiParam(value = "id of a show.", required = true)
-            @PathVariable final UUID id) {
+            @PathVariable final Long id) {
         if (this.showService.findShowById(id).isPresent()) {
             this.showService.deleteShow(id);
             return ResponseEntity.noContent().build();

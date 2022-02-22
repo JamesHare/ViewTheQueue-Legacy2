@@ -1,44 +1,71 @@
 package com.jamesmhare.examples.viewthequeueservice.model;
 
 import lombok.*;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.UUID;
+import java.util.Date;
 
 /**
  * Represents an Attraction in a Theme Park.
  *
  * @author James Hare
  */
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "attractions")
-public class Attraction extends AbstractViewTheQueueEntity {
+public class Attraction extends AbstractTimestampedEntity {
 
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false)
-    private String area;
+    private Long attractionId;
+
+    @Column(nullable = false)
+    private String name;
+
     @Column(nullable = false)
     private String description;
+
     @Column(nullable = false)
-    private Integer waitTime;
+    private OperatingStatus operatingStatus;
+
     @Column(nullable = false)
-    private Integer maxHeightRestrictionInches;
+    private Date openingTime;
+
     @Column(nullable = false)
-    private Integer minHeightRestrictionInches;
+    private Date closingTime;
+
     @Column(nullable = false)
+    private Long waitTime;
+
+    @Column(nullable = false)
+    private Integer maxHeightInches;
+
+    @Column(nullable = false)
+    private Integer minHeightInches;
+
+    @Column(name = "express_line", nullable = false)
     private boolean hasExpressLine;
-    @Column(nullable = false)
-    private boolean hasSingleRider;
-    @ManyToOne
-    @JoinColumn(name="theme_park_id", nullable=false)
+
+    @Column(name = "single_rider_line", nullable = false)
+    private boolean hasSingleRiderLine;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "areas_to_attractions",
+            joinColumns = @JoinColumn(name = "attraction_id"),
+            inverseJoinColumns = @JoinColumn(name = "area_id"))
+    private Area area;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "theme_parks_to_attractions",
+            joinColumns = @JoinColumn(name = "attraction_id"),
+            inverseJoinColumns = @JoinColumn(name = "theme_park_id"))
     private ThemePark themePark;
 
 }

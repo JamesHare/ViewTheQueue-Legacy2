@@ -4,7 +4,6 @@ import com.jamesmhare.examples.viewthequeueservice.model.Restaurant;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 public interface RestaurantService {
 
@@ -21,7 +20,7 @@ public interface RestaurantService {
      * @param id a restaurant id.
      * @return an Optional containing either the restaurant or empty.
      */
-    Optional<Restaurant> findRestaurantById(final UUID id);
+    Optional<Restaurant> findRestaurantById(final Long id);
 
     /**
      * Saves a restaurant to the datasource.
@@ -36,6 +35,6 @@ public interface RestaurantService {
      *
      * @param id the id of the restaurant.
      */
-    void deleteRestaurant(final UUID id);
+    void deleteRestaurant(final Long id);
 
 }

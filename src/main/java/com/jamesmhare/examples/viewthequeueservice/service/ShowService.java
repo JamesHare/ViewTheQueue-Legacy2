@@ -4,7 +4,6 @@ import com.jamesmhare.examples.viewthequeueservice.model.Show;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 public interface ShowService {
 
@@ -21,7 +20,7 @@ public interface ShowService {
      * @param id a show id.
      * @return an Optional containing either the show or empty.
      */
-    Optional<Show> findShowById(final UUID id);
+    Optional<Show> findShowById(final Long id);
 
     /**
      * Saves a show to the datasource.
@@ -36,6 +35,6 @@ public interface ShowService {
      *
      * @param id the id of the show.
      */
-    void deleteShow(final UUID id);
+    void deleteShow(final Long id);
 
 }

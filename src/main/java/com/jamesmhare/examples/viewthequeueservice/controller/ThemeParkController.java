@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Api(tags = "Theme Park Management")
@@ -58,7 +57,7 @@ public class ThemeParkController {
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ThemeParkDto> getThemePark(
             @ApiParam(value = "id of a Theme Park.", required = true)
-            @PathVariable final UUID id) {
+            @PathVariable final Long id) {
         final Optional<ThemePark> themePark = this.themeParkService.findThemeParkById(id);
         return themePark.map(
                 value -> ResponseEntity
@@ -95,7 +94,7 @@ public class ThemeParkController {
     @PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ThemeParkDto> updateThemePark(
             @ApiParam(value = "id of an existing Theme Park.", required = true)
-            @PathVariable final UUID id,
+            @PathVariable final Long id,
             @ApiParam(value = "Updated Theme Park.", required = true)
             @Valid
             @RequestBody final ThemeParkDto themePark) {
@@ -104,7 +103,7 @@ public class ThemeParkController {
         if (existingThemePark.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-        themePark.setId(id);
+        themePark.setThemeParkId(id);
         final ThemePark savedThemePark = this.themeParkService
                 .saveThemePark(this.themeParkMapper.themeParkDtoToThemePark(themePark));
         return ResponseEntity
@@ -121,7 +120,7 @@ public class ThemeParkController {
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<Void> deleteThemePark(
             @ApiParam(value = "id of an themePark.", required = true)
-            @PathVariable final UUID id) {
+            @PathVariable final Long id) {
         if (this.themeParkService.findThemeParkById(id).isPresent()) {
             this.themeParkService.deleteThemePark(id);
             return ResponseEntity.noContent().build();

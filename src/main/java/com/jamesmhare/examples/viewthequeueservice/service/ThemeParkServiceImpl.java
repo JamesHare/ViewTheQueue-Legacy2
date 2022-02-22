@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 /**
  * A service class for communicating with the {@link ThemeParkRepository}.
@@ -32,7 +31,7 @@ public class ThemeParkServiceImpl implements ThemeParkService {
     /**
      * {@inheritDoc}
      */
-    public Optional<ThemePark> findThemeParkById(final UUID id) {
+    public Optional<ThemePark> findThemeParkById(final Long id) {
         return this.repository.findById(id);
     }
 
@@ -46,7 +45,7 @@ public class ThemeParkServiceImpl implements ThemeParkService {
     /**
      * {@inheritDoc}
      */
-    public void deleteThemePark(final UUID id) {
+    public void deleteThemePark(final Long id) {
         this.repository.deleteById(id);
     }
 }

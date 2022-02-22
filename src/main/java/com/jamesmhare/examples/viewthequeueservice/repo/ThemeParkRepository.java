@@ -8,5 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.UUID;
 
 @Repository
-public interface ThemeParkRepository extends JpaRepository<ThemePark, UUID> {
+public interface ThemeParkRepository extends JpaRepository<ThemePark, Long> {
 }

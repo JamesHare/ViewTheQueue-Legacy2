@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Api(tags = "Attractions Management")
@@ -58,7 +57,7 @@ public class AttractionController {
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AttractionDto> getAttraction(
             @ApiParam(value = "id of an attraction.", required = true)
-            @PathVariable final UUID id) {
+            @PathVariable final Long id) {
         final Optional<Attraction> attraction = this.attractionService.findAttractionById(id);
         return attraction.map(
                 value -> ResponseEntity
@@ -95,7 +94,7 @@ public class AttractionController {
     @PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AttractionDto> updateAttraction(
             @ApiParam(value = "id of an existing attraction.", required = true)
-            @PathVariable final UUID id,
+            @PathVariable final Long id,
             @ApiParam(value = "Updated attraction.", required = true)
             @Valid
             @RequestBody final AttractionDto attraction) {
@@ -104,7 +103,7 @@ public class AttractionController {
         if (existingAttraction.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-        attraction.setId(id);
+        attraction.setAttractionId(id);
         final Attraction savedAttraction = this.attractionService
                 .saveAttraction(this.attractionMapper.attractionDtoToAttraction(attraction));
         return ResponseEntity
@@ -121,7 +120,7 @@ public class AttractionController {
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<Void> deleteAttraction(
             @ApiParam(value = "id of an attraction.", required = true)
-            @PathVariable final UUID id) {
+            @PathVariable final Long id) {
         if (this.attractionService.findAttractionById(id).isPresent()) {
             this.attractionService.deleteAttraction(id);
             return ResponseEntity.noContent().build();

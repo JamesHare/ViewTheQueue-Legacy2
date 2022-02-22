@@ -4,7 +4,6 @@ import com.jamesmhare.examples.viewthequeueservice.model.Attraction;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 public interface AttractionService {
 
@@ -21,7 +20,7 @@ public interface AttractionService {
      * @param id a attraction id.
      * @return an Optional containing either the attraction or empty.
      */
-    Optional<Attraction> findAttractionById(final UUID id);
+    Optional<Attraction> findAttractionById(final Long id);
 
     /**
      * Saves a attraction to the datasource.
@@ -36,6 +35,6 @@ public interface AttractionService {
      *
      * @param id the id of the attraction.
      */
-    void deleteAttraction(final UUID id);
+    void deleteAttraction(final Long id);
 
 }

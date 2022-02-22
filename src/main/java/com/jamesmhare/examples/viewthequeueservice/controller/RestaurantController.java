@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Api(tags = "Restaurant Management")
@@ -58,7 +57,7 @@ public class RestaurantController {
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<RestaurantDto> getRestaurant(
             @ApiParam(value = "id of a restaurant.", required = true)
-            @PathVariable final UUID id) {
+            @PathVariable final Long id) {
         final Optional<Restaurant> restaurant = this.restaurantService.findRestaurantById(id);
         return restaurant.map(
                 value -> ResponseEntity
@@ -95,7 +94,7 @@ public class RestaurantController {
     @PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<RestaurantDto> updateRestaurant(
             @ApiParam(value = "id of an existing restaurant.", required = true)
-            @PathVariable final UUID id,
+            @PathVariable final Long id,
             @ApiParam(value = "Updated restaurant.", required = true)
             @Valid
             @RequestBody final RestaurantDto restaurant) {
@@ -104,7 +103,7 @@ public class RestaurantController {
         if (existingRestaurant.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-        restaurant.setId(id);
+        restaurant.setRestaurantId(id);
         final Restaurant savedRestaurant = this.restaurantService
                 .saveRestaurant(this.restaurantMapper.restaurantDtoToRestaurant(restaurant));
         return ResponseEntity
@@ -121,7 +120,7 @@ public class RestaurantController {
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<Void> deleteRestaurant(
             @ApiParam(value = "id of an restaurant.", required = true)
-            @PathVariable final UUID id) {
+            @PathVariable final Long id) {
         if (this.restaurantService.findRestaurantById(id).isPresent()) {
             this.restaurantService.deleteRestaurant(id);
             return ResponseEntity.noContent().build();
